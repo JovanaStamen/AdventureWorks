@@ -24,7 +24,7 @@ namespace AdventureWorks.WebAPI.Controllers
         public IHttpActionResult GetByName([FromUri] string name, [FromUri] int offset, [FromUri] int count)
         {
             var pagedProducts = productService.GetProductsByName(count,offset, name);
-            PagedResult<ProductVM> productsVM = new PagedResult<ProductVM> {CurrentPage = pagedProducts.CurrentPage, PageSize = pagedProducts.PageSize, Results = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(pagedProducts.Results).ToList() };
+            PagedResult<ProductVM> productsVM = new PagedResult<ProductVM> {CurrentPage = pagedProducts.CurrentPage, PageSize = pagedProducts.PageSize, Total = pagedProducts.Total, Results = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(pagedProducts.Results).ToList() };
             if (productsVM.Results != null && productsVM.Results.Count == 0)
             {
                 return NotFound();
@@ -39,7 +39,7 @@ namespace AdventureWorks.WebAPI.Controllers
         {
             DateTime.TryParse(startDate, out DateTime result);
             var pagedProducts = productService.GetProductsBySellingStartDate(count, offset, result);
-            PagedResult<ProductVM> productsVM = new PagedResult<ProductVM> { CurrentPage = pagedProducts.CurrentPage, PageSize = pagedProducts.PageSize, Results = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(pagedProducts.Results).ToList() };
+            PagedResult<ProductVM> productsVM = new PagedResult<ProductVM> { CurrentPage = pagedProducts.CurrentPage, PageSize = pagedProducts.PageSize, Total = pagedProducts.Total, Results = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductVM>>(pagedProducts.Results).ToList() };
 
             if (productsVM.Results != null && productsVM.Results.Count == 0)
             {
